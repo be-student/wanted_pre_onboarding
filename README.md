@@ -1,73 +1,48 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo_text.svg" width="320" alt="Nest Logo" /></a>
-</p>
+시작 전 요구사항 고민
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+# 필수 기술 요건
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+Mysql 을 사용, TypeORM을 이용해 진행할 것입니다.
 
-## Description
+# 평가 요소
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+모델링에 대한 고민
+가독성 및 컨벤션
 
-## Installation
+# 기술 점수 가산점 요소
 
-```bash
-$ npm install
-```
+## UnitTest
 
-## Running the app
+간단한 API이기에, TDD를 통해서 진행하려고 함.
 
-```bash
-# development
-$ npm run start
+## 요구사항 분석, 구현 과정 작성
 
-# watch mode
-$ npm run start:dev
+Git Convention : Commit Lint라고 하는 패키지와 husky의 githook 을 통해서 자동적으로 모든 커밋은 컨벤션을 검사받도록 설정해두었습니다
+\[feat, docs, refac, chore]: 내용
+같은 느낌으로 진행될 것
 
-# production mode
-$ npm run start:prod
-```
+폴더 구조는 NestJS의 cli가 생성해주는 방식 그대로 진행하려고 함
 
-## Test
+ERD
+회사
+회사에는 기본적으로 이름만 있고, 나머지는 다 additional Info 로 따로 저장하려고 함
 
-```bash
-# unit tests
-$ npm run test
+- 채용 공고와 1:n 조인 예정
 
-# e2e tests
-$ npm run test:e2e
+채용 공고
+공고 포지션(제목)
+내용
 
-# test coverage
-$ npm run test:cov
-```
+- 기술 스택 테이블과 n:m 조인 예정
+  나머지는 additional Info
 
-## Support
+기술 스택 테이블
+id
+기술 명이 있을 예정
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+이 부분은 앞으로 추가가 될 것으로 예상됨. 하지만 지금 단계에서는 db에 바로 생성하기에
+간단한 api로 그냥 바로 생성하도록 만들어 둘 예정
 
-## Stay in touch
-
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
-
-## License
-
-Nest is [MIT licensed](LICENSE).
+지원자 테이블
+지원자 이름
+채용 공고와 n:m으로 join할 예정
