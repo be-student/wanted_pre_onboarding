@@ -3,6 +3,12 @@ import { Sample } from '@modules/sample/entities';
 import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { Announce } from '@typeormEntity/Announce.entity';
+import { AnnounceAdditional } from '@typeormEntity/AnnounceAdditional.entity';
+import { Company } from '@typeormEntity/Company.entity';
+import { CompanyAdditional } from '@typeormEntity/CompanyAdditional.entity';
+import { Tech } from '@typeormEntity/Tech.entity';
+import { User } from '@typeormEntity/User.entity';
 
 @Module({
   imports: [
@@ -21,8 +27,15 @@ import { TypeOrmModule } from '@nestjs/typeorm';
         username: configService.get('DBUSERNAME'),
         password: configService.get('DBPASSWORD'),
         database: configService.get('DBDATABASE'),
-        entities: [Sample],
-        synchronize: true,
+        entities: [
+          Announce,
+          AnnounceAdditional,
+          Company,
+          CompanyAdditional,
+          Tech,
+          User,
+        ],
+        synchronize: false,
       }),
     }),
     ApiModule,
