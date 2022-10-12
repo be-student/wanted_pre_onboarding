@@ -20,6 +20,8 @@ Mysql 을 사용, TypeORM을 이용해 진행할 것입니다.
 Git Convention : Commit Lint라고 하는 패키지와 husky의 githook 을 통해서 자동적으로 모든 커밋은 컨벤션을 검사받도록 설정해두었습니다
 \[feat, docs, refac, chore]: 내용
 같은 느낌으로 진행될 것
+간단한 api이기에, master, feat/이름 형태의 간단한 것을 통해 만들 예정.
+issue는 만들지 않음
 
 폴더 구조는 NestJS의 cli가 생성해주는 방식 그대로 진행하려고 함
 
@@ -48,4 +50,3 @@ id
 채용 공고와 n:m으로 join할 예정
 
 ![image](https://user-images.githubusercontent.com/80899085/195292088-96d02c18-033d-4abe-84c2-86cf0b59f4d9.png)
-
