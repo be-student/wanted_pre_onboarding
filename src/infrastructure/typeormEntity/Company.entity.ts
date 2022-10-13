@@ -10,7 +10,10 @@ import { DateEntity } from './Date.entity';
 
 @Entity()
 export class Company extends DateEntity {
-  @PrimaryColumn()
+  @PrimaryGeneratedColumn()
+  id: number;
+
+  @Column()
   name: string;
 
   @OneToMany(

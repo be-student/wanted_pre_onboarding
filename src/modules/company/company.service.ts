@@ -46,13 +46,10 @@ export class CompanyService {
     return `This action returns a #${id} company`;
   }
 
-  update(id: number, updateCompanyDto: UpdateCompanyDto) {
-    return `This action updates a #${id} company`;
-  }
-
   remove(id: number) {
     return `This action removes a #${id} company`;
   }
+
   generateCompany(createCompanyDto: CreateCompanyDto): Company {
     const company = new Company();
     company.name = createCompanyDto.name;
@@ -65,6 +62,7 @@ export class CompanyService {
       relations: ['additionals'],
     });
   }
+
   parseAdditional(additionals: CreateCompanyDto['additional']) {
     const companyAdditionals: Array<CompanyAdditional> = [];
     additionals?.map((addition) => {

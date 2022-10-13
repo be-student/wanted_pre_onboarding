@@ -48,4 +48,10 @@ describe('CompanyService', () => {
       resultAdditionals,
     );
   });
+
+  it('generate company works', () => {
+    const result = new Company();
+    result.name = 'hello';
+    expect(service.generateCompany({ name: 'hello' })).toStrictEqual(result);
+  });
 });
