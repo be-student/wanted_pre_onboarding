@@ -12,6 +12,7 @@ module.exports = {
     '^@common/(.*)$': '<rootDir>/common/$1',
     '^@config/(.*)$': '<rootDir>/config/$1',
     '^@modules/(.*)$': '<rootDir>/modules/$1',
+    '^@typeormEntity/(.*)$': '<rootDir>/infrastructure/typeormEntity/$1',
   },
   coverageDirectory: '../coverage',
   testEnvironment: 'node',

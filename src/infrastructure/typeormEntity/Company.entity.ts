@@ -1,4 +1,10 @@
-import { Entity, OneToMany, PrimaryColumn } from 'typeorm';
+import {
+  Column,
+  Entity,
+  OneToMany,
+  PrimaryColumn,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 import { CompanyAdditional } from './CompanyAdditional.entity';
 import { DateEntity } from './Date.entity';
 
@@ -11,5 +17,5 @@ export class Company extends DateEntity {
     (type) => CompanyAdditional,
     (companyAdditional) => companyAdditional.company,
   )
-  additionals: Company[];
+  additionals: CompanyAdditional[];
 }
