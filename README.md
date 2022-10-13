@@ -51,3 +51,17 @@ id
 
 ![image](https://user-images.githubusercontent.com/80899085/195551139-f4c5e16b-5b22-4e9a-9305-67d43fb24f16.png)
 
+API 구현 상세
+POST api/company 회사 생성
+GET api/company 모든 회사 리스트 가져오기
+GET api/company/{name} 회사 이름으로 찾기
+PUT api/company 회사 수정
+
+POST api/announce 채용 공고 생성
+PUT api/announce 채용 공고 수정
+DELETE api/announce/{id} 채용 공고 삭제
+GET api/announce?page=2 채용 공고 목록 가져오기 페이지네이션 default page=1
+GET api/announce?page=3&search=회사명,기술 종류,
+GET api/announce/{id} 채용 상세 페이지 get
+
+POST api/tech 기술 생성
