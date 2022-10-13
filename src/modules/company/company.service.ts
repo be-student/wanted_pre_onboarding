@@ -4,7 +4,6 @@ import { Company } from '@typeormEntity/Company.entity';
 import { CompanyAdditional } from '@typeormEntity/CompanyAdditional.entity';
 import { Repository } from 'typeorm';
 import { CreateCompanyDto } from './dto/create-company.dto';
-import { UpdateCompanyDto } from './dto/update-company.dto';
 
 @Injectable()
 export class CompanyService {
@@ -36,18 +35,6 @@ export class CompanyService {
         await this.companyAdditionalRepository.save(additional);
       }),
     );
-  }
-
-  findAll() {
-    return `This action returns all company`;
-  }
-
-  findOne(id: number) {
-    return `This action returns a #${id} company`;
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} company`;
   }
 
   generateCompany(createCompanyDto: CreateCompanyDto): Company {
