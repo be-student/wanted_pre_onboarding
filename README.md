@@ -62,3 +62,5 @@ GET api/announce?page=3&search=회사명,기술 종류,
 GET api/announce/{id} 채용 상세 페이지 get
 
 POST api/application
+
+POST api/user 간단한 유저 생성 validation없음
