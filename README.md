@@ -49,4 +49,5 @@ id
 지원자 이름
 채용 공고와 n:m으로 join할 예정
 
-![image](https://user-images.githubusercontent.com/80899085/195292088-96d02c18-033d-4abe-84c2-86cf0b59f4d9.png)
+![image](https://user-images.githubusercontent.com/80899085/195551139-f4c5e16b-5b22-4e9a-9305-67d43fb24f16.png)
+
