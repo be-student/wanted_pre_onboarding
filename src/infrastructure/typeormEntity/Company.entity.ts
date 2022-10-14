@@ -1,4 +1,5 @@
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+import { Announce } from './Announce.entity';
 import { CompanyAdditional } from './CompanyAdditional.entity';
 import { DateEntity } from './Date.entity';
 
@@ -16,4 +17,9 @@ export class Company extends DateEntity {
     { onDelete: 'CASCADE' },
   )
   additionals: CompanyAdditional[];
+
+  @OneToMany((type) => Announce, (announce) => announce.company, {
+    onDelete: 'CASCADE',
+  })
+  announces: Announce[];
 }

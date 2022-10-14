@@ -1,4 +1,14 @@
-import { Body, Controller, Delete, Param, Post, Put } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  ParseIntPipe,
+  Post,
+  Put,
+  Query,
+} from '@nestjs/common';
 import { AnnounceService } from './announce.service';
 import { CreateAnnounce } from './dto/createAnnounce';
 import { UpdateAnnounce } from './dto/updateAnnounce';
@@ -22,5 +32,18 @@ export class AnnounceController {
   @Delete('/:id')
   async deleteAnnounce(@Param('id') id: string) {
     return await this.announceService.delete(id);
+  }
+
+  @Get()
+  async getAnnounce(
+    @Query('page', ParseIntPipe) page?: number,
+    @Query('search') search?: string,
+  ) {
+    return await this.announceService.findByPage(page, search);
+  }
+
+  @Get('/:id')
+  async getSpecific(@Param('id', ParseIntPipe) id: number) {
+    return await this.announceService.findById(id);
   }
 }

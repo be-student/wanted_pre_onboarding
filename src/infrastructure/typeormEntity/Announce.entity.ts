@@ -2,10 +2,12 @@ import {
   Column,
   Entity,
   ManyToMany,
+  ManyToOne,
   OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
 import { AnnounceAdditional } from './AnnounceAdditional.entity';
+import { Company } from './Company.entity';
 import { DateEntity } from './Date.entity';
 import { Tech } from './Tech.entity';
 import { User } from './User.entity';
@@ -27,6 +29,11 @@ export class Announce extends DateEntity {
     { onDelete: 'CASCADE' },
   )
   additionals: AnnounceAdditional[];
+
+  @ManyToOne((type) => Company, (company) => company.announces, {
+    onDelete: 'CASCADE',
+  })
+  company: Company;
 
   @ManyToMany(() => User)
   users: User[];

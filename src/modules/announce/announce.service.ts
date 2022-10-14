@@ -2,7 +2,7 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Announce } from '@typeormEntity/Announce.entity';
 import { AnnounceAdditional } from '@typeormEntity/AnnounceAdditional.entity';
-import { getConnection, Repository } from 'typeorm';
+import { DataSource, getConnection, Not, Repository } from 'typeorm';
 import { CreateAnnounce } from './dto/createAnnounce';
 
 @Injectable()
@@ -12,6 +12,7 @@ export class AnnounceService {
     private readonly announceRepository: Repository<Announce>,
     @InjectRepository(AnnounceAdditional)
     private readonly announceAdditionalRepository: Repository<AnnounceAdditional>,
+    private datasource: DataSource,
   ) {}
 
   private async saveAnnounce(createAnnounce: CreateAnnounce, id?: number) {
@@ -40,7 +41,7 @@ export class AnnounceService {
     );
   }
   async create(createAnnounce: CreateAnnounce) {
-    const queryRunner = getConnection().createQueryRunner();
+    const queryRunner = this.datasource.createQueryRunner();
     await queryRunner.startTransaction();
     let id: number;
     try {
@@ -67,7 +68,7 @@ export class AnnounceService {
     if (!target) {
       throw new NotFoundException('announce not found error');
     }
-    const queryRunner = getConnection().createQueryRunner();
+    const queryRunner = this.datasource.createQueryRunner();
     await queryRunner.startTransaction();
 
     try {
@@ -81,6 +82,33 @@ export class AnnounceService {
     }
   }
 
+  async findByPage(page?: number, search?: string) {
+    let skip = 10;
+    if (page) {
+      skip = page * 10 - 10;
+    }
+
+    return await this.announceRepository
+      .createQueryBuilder('announce')
+      .skip(skip)
+      .limit(10)
+      .getMany();
+  }
+  async findById(id: number) {
+    const thisOne = await this.announceRepository.findOne({
+      where: {
+        id: id,
+      },
+      relations: ['additionals'],
+    });
+    const others = await this.announceRepository.find({
+      where: {
+        company: thisOne.company,
+        id: Not(thisOne.id),
+      },
+    });
+    return { thisOne, others };
+  }
   generateAnnounceAdditionals(
     additionals: Array<{ [key: string]: string }>,
     announce: Announce,

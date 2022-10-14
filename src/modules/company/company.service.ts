@@ -2,7 +2,7 @@ import { ConflictException, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Company } from '@typeormEntity/Company.entity';
 import { CompanyAdditional } from '@typeormEntity/CompanyAdditional.entity';
-import { Repository } from 'typeorm';
+import { DataSource, Repository } from 'typeorm';
 import { CreateCompanyDto } from './dto/create-company.dto';
 
 @Injectable()
@@ -12,6 +12,7 @@ export class CompanyService {
     private readonly companyRepository: Repository<Company>,
     @InjectRepository(CompanyAdditional)
     private readonly companyAdditionalRepository: Repository<CompanyAdditional>,
+    private datasource: DataSource,
   ) {}
   async create(createCompanyDto: CreateCompanyDto) {
     const existed: Company = await this.getCompany(createCompanyDto.name);
