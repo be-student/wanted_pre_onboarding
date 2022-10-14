@@ -6,6 +6,12 @@ import { UsersModule } from './users/users.module';
 import { AnnounceModule } from './announce/announce.module';
 
 @Module({
-  imports: [HealthCheckModule, SampleModule, CompanyModule, UsersModule, AnnounceModule],
+  imports: [
+    HealthCheckModule,
+    SampleModule,
+    CompanyModule,
+    UsersModule,
+    AnnounceModule,
+  ],
 })
 export class ApiModule {}

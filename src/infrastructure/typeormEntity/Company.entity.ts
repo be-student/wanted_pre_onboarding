@@ -19,6 +19,7 @@ export class Company extends DateEntity {
   @OneToMany(
     (type) => CompanyAdditional,
     (companyAdditional) => companyAdditional.company,
+    { onDelete: 'CASCADE' },
   )
   additionals: CompanyAdditional[];
 }

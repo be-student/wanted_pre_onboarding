@@ -32,6 +32,10 @@ export class AnnounceService {
     );
     return newAnnounce.id;
   }
+  async delete(id: string) {
+    return await this.announceRepository.delete(id);
+  }
+
   generateAnnounceAdditionals(
     additionals: Array<{ [key: string]: string }>,
     announce: Announce,

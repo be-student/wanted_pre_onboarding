@@ -24,6 +24,7 @@ export class Announce extends DateEntity {
   @OneToMany(
     (type) => AnnounceAdditional,
     (announceAdditional) => announceAdditional.announce,
+    { onDelete: 'CASCADE' },
   )
   additionals: AnnounceAdditional[];
 
