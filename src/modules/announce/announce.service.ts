@@ -4,7 +4,7 @@ import { Announce } from '@typeormEntity/Announce.entity';
 import { AnnounceAdditional } from '@typeormEntity/AnnounceAdditional.entity';
 import { Company } from '@typeormEntity/Company.entity';
 import { DataSource, Not, Repository } from 'typeorm';
-import { CreateAnnounce } from './dto/createAnnounce';
+import { CreateAnnounce } from './dto/createAnnounceDto';
 
 @Injectable()
 export class AnnounceService {
