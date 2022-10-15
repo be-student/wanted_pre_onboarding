@@ -6,6 +6,12 @@ import { AnnounceModule } from './announce/announce.module';
 import { ApplicationModule } from './application/application.module';
 
 @Module({
-  imports: [HealthCheckModule, CompanyModule, UsersModule, AnnounceModule, ApplicationModule],
+  imports: [
+    HealthCheckModule,
+    CompanyModule,
+    UsersModule,
+    AnnounceModule,
+    ApplicationModule,
+  ],
 })
 export class ApiModule {}

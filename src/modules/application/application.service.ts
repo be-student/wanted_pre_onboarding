@@ -3,7 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Announce } from '@typeormEntity/Announce.entity';
 import { User } from '@typeormEntity/User.entity';
 import { Repository } from 'typeorm';
-import { createApplication } from './dto/createApplication';
+import { CreateApplication } from './dto/createApplication';
 
 @Injectable()
 export class ApplicationService {
@@ -12,7 +12,7 @@ export class ApplicationService {
     @InjectRepository(Announce)
     private readonly announceRepository: Repository<Announce>,
   ) {}
-  async create(createApplication: createApplication) {
+  async create(createApplication: CreateApplication) {
     const announce = await this.announceRepository.findOne({
       where: {
         id: createApplication.getApplicationId(),
@@ -30,7 +30,7 @@ export class ApplicationService {
     if (!user) {
       throw new NotFoundException('user not found');
     }
-    console.log(user);
+
     if (!user.announces) {
       user.announces = [];
     }

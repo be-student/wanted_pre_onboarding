@@ -3,6 +3,7 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { getRepositoryToken } from '@nestjs/typeorm';
 import { Announce } from '@typeormEntity/Announce.entity';
 import { AnnounceAdditional } from '@typeormEntity/AnnounceAdditional.entity';
+import { Company } from '@typeormEntity/Company.entity';
 import { DataSource } from 'typeorm';
 import { AnnounceService } from './announce.service';
 
@@ -34,6 +35,10 @@ describe('AnnounceService', () => {
         },
         {
           provide: getRepositoryToken(AnnounceAdditional),
+          useValue: mockRepository(),
+        },
+        {
+          provide: getRepositoryToken(Company),
           useValue: mockRepository(),
         },
         {

@@ -58,9 +58,11 @@ POST api/announce 채용 공고 생성
 PUT api/announce 채용 공고 수정
 DELETE api/announce/{id} 채용 공고 삭제
 GET api/announce?page=2 채용 공고 목록 가져오기 페이지네이션 default page=1
-GET api/announce?page=3&search=회사명,기술 종류,
+
 GET api/announce/{id} 채용 상세 페이지 get
 
 POST api/application
 
 POST api/user 간단한 유저 생성 validation없음
+
+update 단계에서 delete를 하고, 새롭게 만드는 과정을 transation으로 엮어서, additional 같은 것들이 남는 문제를 편하게 해결함
