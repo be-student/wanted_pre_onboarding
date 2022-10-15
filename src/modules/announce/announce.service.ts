@@ -87,7 +87,6 @@ export class AnnounceService {
     if (page) {
       skip = page * 10 - 10;
     }
-    console.log(skip);
     return await this.announceRepository
       .createQueryBuilder('announce')
       .offset(skip)
@@ -102,12 +101,6 @@ export class AnnounceService {
       .leftJoinAndSelect('announce.additionals', 'additionals')
       .where('announce.id = :id', { id: id })
       .getOne();
-    // .findOne({
-    //   where: {
-    //     id: id,
-    //   },
-    //   relations: ['additionals'],
-    // });
     const others = await this.announceRepository.find({
       where: {
         company: thisOne.company,
