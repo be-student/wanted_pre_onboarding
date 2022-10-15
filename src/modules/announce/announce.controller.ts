@@ -10,7 +10,7 @@ import {
   Query,
 } from '@nestjs/common';
 import { AnnounceService } from './announce.service';
-import { CreateAnnounce } from './dto/createAnnounce';
+import { CreateAnnounce } from './dto/createAnnounceDto';
 
 @Controller('announce')
 export class AnnounceController {

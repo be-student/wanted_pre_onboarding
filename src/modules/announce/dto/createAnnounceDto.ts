@@ -1,7 +1,14 @@
+import { IsNumber, IsString } from 'class-validator';
+
 export class CreateAnnounce {
+  @IsString()
   private position: string;
+
+  @IsString()
   private content: string;
   private additional?: Array<{ [key: string]: string }>;
+
+  @IsNumber()
   private companyId: number;
   constructor(
     position: string,
