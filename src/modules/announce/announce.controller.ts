@@ -36,7 +36,7 @@ export class AnnounceController {
 
   @Get()
   async getAnnounce(
-    @Query('page', ParseIntPipe) page?: number,
+    @Query('page') page?: number,
     @Query('search') search?: string,
   ) {
     return await this.announceService.findByPage(page, search);

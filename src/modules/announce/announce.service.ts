@@ -1,5 +1,5 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
+import { InjectDataSource, InjectRepository } from '@nestjs/typeorm';
 import { Announce } from '@typeormEntity/Announce.entity';
 import { AnnounceAdditional } from '@typeormEntity/AnnounceAdditional.entity';
 import { DataSource, getConnection, Not, Repository } from 'typeorm';
@@ -12,7 +12,7 @@ export class AnnounceService {
     private readonly announceRepository: Repository<Announce>,
     @InjectRepository(AnnounceAdditional)
     private readonly announceAdditionalRepository: Repository<AnnounceAdditional>,
-    private datasource: DataSource,
+    private readonly datasource: DataSource,
   ) {}
 
   private async saveAnnounce(createAnnounce: CreateAnnounce, id?: number) {
@@ -87,24 +87,34 @@ export class AnnounceService {
     if (page) {
       skip = page * 10 - 10;
     }
-
+    console.log(skip);
     return await this.announceRepository
       .createQueryBuilder('announce')
-      .skip(skip)
+      .offset(skip)
+      .leftJoinAndSelect('announce.additionals', 'additionals')
       .limit(10)
       .getMany();
   }
   async findById(id: number) {
-    const thisOne = await this.announceRepository.findOne({
-      where: {
-        id: id,
-      },
-      relations: ['additionals'],
-    });
+    const thisOne = await this.announceRepository
+      .createQueryBuilder('announce')
+      .addSelect('announce.content')
+      .leftJoinAndSelect('announce.additionals', 'additionals')
+      .where('announce.id = :id', { id: id })
+      .getOne();
+    // .findOne({
+    //   where: {
+    //     id: id,
+    //   },
+    //   relations: ['additionals'],
+    // });
     const others = await this.announceRepository.find({
       where: {
         company: thisOne.company,
         id: Not(thisOne.id),
+      },
+      select: {
+        id: true,
       },
     });
     return { thisOne, others };

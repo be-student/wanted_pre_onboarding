@@ -20,7 +20,7 @@ export class Announce extends DateEntity {
   @Column()
   position: string;
 
-  @Column()
+  @Column({ select: false })
   content: string;
 
   @OneToMany(

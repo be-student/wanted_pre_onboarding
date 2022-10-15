@@ -4,6 +4,7 @@ import { getRepositoryToken } from '@nestjs/typeorm';
 import { Announce } from '@typeormEntity/Announce.entity';
 import { AnnounceAdditional } from '@typeormEntity/AnnounceAdditional.entity';
 import { Company } from '@typeormEntity/Company.entity';
+import { DataSource } from 'typeorm';
 import { AnnounceService } from './announce.service';
 
 const mockRepository = () => ({
@@ -34,6 +35,10 @@ describe('AnnounceService', () => {
         },
         {
           provide: getRepositoryToken(AnnounceAdditional),
+          useValue: mockRepository(),
+        },
+        {
+          provide: DataSource,
           useValue: mockRepository(),
         },
       ],
