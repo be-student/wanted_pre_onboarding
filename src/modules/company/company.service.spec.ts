@@ -2,6 +2,7 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { getRepositoryToken } from '@nestjs/typeorm';
 import { Company } from '@typeormEntity/Company.entity';
 import { CompanyAdditional } from '@typeormEntity/CompanyAdditional.entity';
+import { DataSource } from 'typeorm';
 import { CompanyService } from './company.service';
 import { CreateCompanyDto } from './dto/create-company.dto';
 
@@ -31,6 +32,10 @@ describe('CompanyService', () => {
         { provide: getRepositoryToken(Company), useValue: mockRepository() },
         {
           provide: getRepositoryToken(CompanyAdditional),
+          useValue: mockRepository(),
+        },
+        {
+          provide: DataSource,
           useValue: mockRepository(),
         },
       ],

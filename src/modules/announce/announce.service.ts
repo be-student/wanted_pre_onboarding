@@ -1,8 +1,8 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { InjectDataSource, InjectRepository } from '@nestjs/typeorm';
+import { InjectRepository } from '@nestjs/typeorm';
 import { Announce } from '@typeormEntity/Announce.entity';
 import { AnnounceAdditional } from '@typeormEntity/AnnounceAdditional.entity';
-import { DataSource, getConnection, Not, Repository } from 'typeorm';
+import { DataSource, Not, Repository } from 'typeorm';
 import { CreateAnnounce } from './dto/createAnnounce';
 
 @Injectable()

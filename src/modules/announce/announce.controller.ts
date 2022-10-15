@@ -11,7 +11,6 @@ import {
 } from '@nestjs/common';
 import { AnnounceService } from './announce.service';
 import { CreateAnnounce } from './dto/createAnnounce';
-import { UpdateAnnounce } from './dto/updateAnnounce';
 
 @Controller('announce')
 export class AnnounceController {
