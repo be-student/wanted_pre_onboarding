@@ -1,4 +1,4 @@
-export class createApplication {
+export class CreateApplication {
   private userId: number;
   private applicationId: number;
 

@@ -2,6 +2,7 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Announce } from '@typeormEntity/Announce.entity';
 import { AnnounceAdditional } from '@typeormEntity/AnnounceAdditional.entity';
+import { Company } from '@typeormEntity/Company.entity';
 import { DataSource, Not, Repository } from 'typeorm';
 import { CreateAnnounce } from './dto/createAnnounce';
 
@@ -12,17 +13,35 @@ export class AnnounceService {
     private readonly announceRepository: Repository<Announce>,
     @InjectRepository(AnnounceAdditional)
     private readonly announceAdditionalRepository: Repository<AnnounceAdditional>,
+    @InjectRepository(Company)
+    private readonly companyRepository: Repository<Company>,
     private readonly datasource: DataSource,
   ) {}
 
-  private async saveAnnounce(createAnnounce: CreateAnnounce, id?: number) {
+  private async saveAnnounce(
+    createAnnounce: CreateAnnounce,
+    company: Company,
+    id?: number,
+  ) {
     const newAnnounce = new Announce();
     newAnnounce.content = createAnnounce.getContent();
     newAnnounce.position = createAnnounce.getPosition();
+    newAnnounce.company = company;
     if (id) {
       newAnnounce.id = id;
     }
     return await this.announceRepository.save(newAnnounce);
+  }
+  private async findCompany(createAnnounce: CreateAnnounce) {
+    const company = await this.companyRepository.findOne({
+      where: {
+        id: createAnnounce.getCompanyId(),
+      },
+    });
+    if (!company) {
+      throw new NotFoundException('company not found');
+    }
+    return company;
   }
   private async saveAdditional(
     createAnnounce: CreateAnnounce,
@@ -45,8 +64,10 @@ export class AnnounceService {
     await queryRunner.startTransaction();
     let id: number;
     try {
-      const newAnnounce = await this.saveAnnounce(createAnnounce);
+      const company = await this.findCompany(createAnnounce);
+      const newAnnounce = await this.saveAnnounce(createAnnounce, company);
       await this.saveAdditional(createAnnounce, newAnnounce);
+      newAnnounce.company = company;
       id = newAnnounce.id;
     } catch (error) {
       await queryRunner.rollbackTransaction();
@@ -73,7 +94,8 @@ export class AnnounceService {
 
     try {
       await this.announceRepository.delete(id);
-      const newAnnounce = await this.saveAnnounce(updateAnnounce, +id);
+      const company = await this.findCompany(updateAnnounce);
+      const newAnnounce = await this.saveAnnounce(updateAnnounce, company, +id);
       await this.saveAdditional(updateAnnounce, newAnnounce);
     } catch (error) {
       await queryRunner.rollbackTransaction();
@@ -83,7 +105,7 @@ export class AnnounceService {
   }
 
   async findByPage(page?: number, search?: string) {
-    let skip = 10;
+    let skip = 0;
     if (page) {
       skip = page * 10 - 10;
     }

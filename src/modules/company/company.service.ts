@@ -2,7 +2,7 @@ import { ConflictException, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Company } from '@typeormEntity/Company.entity';
 import { CompanyAdditional } from '@typeormEntity/CompanyAdditional.entity';
-import { DataSource, Repository } from 'typeorm';
+import { Repository } from 'typeorm';
 import { CreateCompanyDto } from './dto/create-company.dto';
 
 @Injectable()
@@ -12,12 +12,11 @@ export class CompanyService {
     private readonly companyRepository: Repository<Company>,
     @InjectRepository(CompanyAdditional)
     private readonly companyAdditionalRepository: Repository<CompanyAdditional>,
-    private datasource: DataSource,
   ) {}
   async create(createCompanyDto: CreateCompanyDto) {
     const existed: Company = await this.getCompany(createCompanyDto.name);
     if (existed) {
-      throw new ConflictException('already exist company');
+      throw new ConflictException('already exist company name');
     }
 
     let company = this.generateCompany(createCompanyDto);
@@ -36,6 +35,7 @@ export class CompanyService {
         await this.companyAdditionalRepository.save(additional);
       }),
     );
+    return company;
   }
 
   generateCompany(createCompanyDto: CreateCompanyDto): Company {
