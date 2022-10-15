@@ -13,6 +13,8 @@ export class CompanyAdditional extends DateEntity {
   @Column()
   content: string;
 
-  @ManyToOne((type) => Company, (company) => company.additionals)
+  @ManyToOne((type) => Company, (company) => company.additionals, {
+    onDelete: 'CASCADE',
+  })
   company: Company;
 }

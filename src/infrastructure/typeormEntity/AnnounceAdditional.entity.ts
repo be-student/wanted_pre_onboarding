@@ -13,6 +13,8 @@ export class AnnounceAdditional extends DateEntity {
   @Column()
   content: string;
 
-  @ManyToOne((type) => Announce, (announce) => announce.additionals)
+  @ManyToOne((type) => Announce, (announce) => announce.additionals, {
+    onDelete: 'CASCADE',
+  })
   announce: Announce;
 }
