@@ -66,3 +66,5 @@ POST api/application
 POST api/user 간단한 유저 생성 validation없음
 
 update 단계에서 delete를 하고, 새롭게 만드는 과정을 transation으로 엮어서, additional 같은 것들이 남는 문제를 편하게 해결함
+
+localhost:port/docs 스웨거
